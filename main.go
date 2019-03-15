@@ -21,16 +21,13 @@ type BondInfo struct{
 	Yield float64
 }
 
-
-func Round(x, unit float64) float64 {
-	return math.Round(x/unit) * unit
-}
+//--------------------------------------------Challenge 1--------------------------------------
 // function to compare the year of coorperate to the nearest two government bond
-// and return the yield difference
-func computeClosePointAndYield(c1 BondInfo, g1 BondInfo, g2 BondInfo) float64 {
+// and return the yield difference and cloest government bond
+func computeClosePointAndYield(c1 BondInfo, g1 BondInfo, g2 BondInfo) (float64, BondInfo) {
 	// conner case if the year is below the smallest one
 	if g1.BondName == "G-1"{
-		return c1.Yield - g2.Yield
+		return c1.Yield - g2.Yield, g2
 	}
 
 
@@ -39,38 +36,81 @@ func computeClosePointAndYield(c1 BondInfo, g1 BondInfo, g2 BondInfo) float64 {
 
 	// if we are closed to the year of g1
 	if d1 < d2 {
-		return c1.Yield - g1.Yield
+		return c1.Yield - g1.Yield, g1
 	// else g2 is our target
 	}else{
-		return c1.Yield - g2.Yield
+		return c1.Yield - g2.Yield, g2
 	}
 
-	return -1
+	return -1, BondInfo{}
 }
 
-func findBestBenchmarkPoint(corpInfo BondInfo, govInfo []BondInfo, ){
+// return the interval that target corperate bond between
+func findClosestTwoGoverBond(corpInfo BondInfo, govInfo []BondInfo)(BondInfo, BondInfo){
 	// conner case 0
-	var i int
-	for i = 0; i < len(govInfo); i++{
+	for i := 0; i < len(govInfo); i++{
 		if corpInfo.Year <= govInfo[i].Year{
-			fmt.Println(corpInfo, govInfo[i-1], govInfo[i])
-			ans := computeClosePointAndYield(corpInfo, govInfo[i-1], govInfo[i])
-			// use round to remove floating error like 1.00000000001
-			fmt.Println(Round(ans, 0.01))
-			break
+			//fmt.Println(corpInfo, govInfo[i-1], govInfo[i])
+			//ans := computeClosePointAndYield(corpInfo, govInfo[i-1], govInfo[i])
+			//// use round to remove floating error like 1.00000000001
+			//fmt.Println(Round(ans, 0.01))
+
+
+			return govInfo[i-1], govInfo[i]
 		}
 	}
+
+	return BondInfo{}, BondInfo{}
 }
 
+// search the best government bond for target corperated info
+func findBestBenchmarkPoint(corpInfo []BondInfo, govInfo []BondInfo){
 
-func main() {
-	fmt.Println("test hello")
+	fmt.Println("bond,benchmark,spread_to_benchmark")
+	for i := 0; i < len(corpInfo); i++{
+		// find interval
+		g1, g2 := findClosestTwoGoverBond(corpInfo[i], govInfo)
+		// compute the yield to closest one
+		yield, bond := computeClosePointAndYield(corpInfo[i], g1, g2)
 
-	var corpInfo []BondInfo
-	var govInfo []BondInfo
-	govInfo = append(govInfo, BondInfo{"G-1", true, -1 ,-1})
+		fmt.Print(corpInfo[i].BondName, ",", bond.BondName, ",", math.Round(yield*100)/100 ,"%\n")
+	}
+}
 
-	csvFile, _ := os.Open("sample_input.csv")
+// --------------------------------------------Challenge 2-------------------------------------------------
+
+// we use g1.yield + slope * delta of Year
+func linearApprox(c1 BondInfo, g1 BondInfo, g2 BondInfo) float64 {
+	slope := (g2.Yield - g1.Yield) / (g2.Year - g1.Year)
+	// get the change of year to compute yield by slope
+	dYear := c1.Year - g1.Year
+
+	return c1.Yield - (g1.Yield + dYear * slope)
+}
+
+// find the estimate value of yield using linear approximation on two
+// closest government bond
+func findYieldInCurve(corpInfo []BondInfo, govInfo []BondInfo){
+
+	fmt.Println("bond,spread_to_curve")
+	for i := 0; i < len(corpInfo); i++{
+		// find interval
+		g1, g2 := findClosestTwoGoverBond(corpInfo[i], govInfo)
+		// project on to the line
+		yield := linearApprox(corpInfo[i], g1, g2)
+
+		fmt.Print(corpInfo[i].BondName, "," , math.Round(yield*100)/100, "%\n")
+	}
+
+}
+
+// load the target file and return sorted array of corperate bond and government bond
+func loadCsvFile(fileName string)([]BondInfo, []BondInfo){
+	corpInfo :=  make([]BondInfo, 0)
+	govInfo := make([]BondInfo, 0)
+	govInfo = append(govInfo, BondInfo{"G-1", true, 0 ,0})
+
+	csvFile, _ := os.Open(fileName)
 	reader := csv.NewReader(bufio.NewReader(csvFile))
 
 	// skip the heading
@@ -125,6 +165,17 @@ func main() {
 		return govInfo[i].Year < govInfo[j].Year
 	})
 
+	return corpInfo, govInfo
+}
+
+
+func main() {
+	//fmt.Println("test hello")
+
+
+
+	corpInfo, govInfo := loadCsvFile("Q2_simple_1.csv")
+
 
 	fmt.Println("------Print Government Bond------")
 	for i := 0; i < len(govInfo);i++{
@@ -137,7 +188,5 @@ func main() {
 	}
 
 	fmt.Println("------Challange 1 test------")
-	findBestBenchmarkPoint(corpInfo[2], govInfo)
-	corpInfo[0].Year = 0.3
-	findBestBenchmarkPoint(corpInfo[0], govInfo)
+	findYieldInCurve(corpInfo, govInfo)
 }
