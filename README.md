@@ -30,6 +30,12 @@ type BondInfo struct{
  		- fatal when csv has not enough column for computation
  		- fatal when csn has invalid data
 
+ - CSV Format
+
+ | bond   | type                     | term        | yield |
+ |--------|--------------------------|-------------|-------|
+ | Name   | corporate or government  | XXXX years  | XXXX% | 
+
 ---
 
 `func findBestBenchmarkPoint(corpInfo []BondInfo, govInfo []BondInfo)`

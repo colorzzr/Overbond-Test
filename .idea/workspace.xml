@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bbca094d-2736-49d0-b025-7edc417627ea" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-    </list>
+    <list default="true" id="bbca094d-2736-49d0-b025-7edc417627ea" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,15 +87,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="114" column="93" selection-start-line="114" selection-start-column="93" selection-end-line="114" selection-end-column="93" />
+            <state relative-caret-position="194">
+              <caret line="49" column="17" selection-start-line="49" selection-start-column="11" selection-end-line="49" selection-end-column="17" />
               <folding>
-                <element signature="n#!!block;n#computeClosePointAndYield#0" />
                 <element signature="n#!!block;n#findClosestTwoGoverBond#0" />
+                <element signature="n#!!block;n#findBestBenchmarkPoint#0" />
                 <element signature="n#!!block;n#linearApprox#0" />
+                <element signature="n#!!block;n#findYieldInCurve#0" />
                 <element signature="n#!!block;n#loadCsvFile#0" />
                 <element signature="n#!!block;n#main#1" />
               </folding>
@@ -105,16 +104,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main_test.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
+            <state relative-caret-position="839">
               <caret line="198" column="31" selection-start-line="198" selection-start-column="31" selection-end-line="198" selection-end-column="31" />
               <folding>
                 <element signature="e#14#45#0" expanded="true" />
                 <element signature="n#!!block;n#Test_Load_CSV#0" />
                 <element signature="e#1231#1253#0" />
-                <element signature="n#!!block;n#Test_C1_simple#0" />
                 <element signature="n#!!block;n#Test_C1_Hard#0" />
                 <element signature="n#!!block;n#Test_C2_Normal#0" />
                 <element signature="n#!!block;n#Test_C2_Hard#0" />
@@ -169,7 +167,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="65" />
     <option name="y" value="-4" />
     <option name="width" value="735" />
@@ -249,9 +247,6 @@
     </list>
   </component>
   <component name="TestHistory">
-    <history-entry file="go_test - 2019.03.15 at 22h 10m 02s.xml">
-      <configuration name="go test" configurationId="GoTestRunConfiguration" />
-    </history-entry>
     <history-entry file="go_test - 2019.03.15 at 22h 10m 32s.xml">
       <configuration name="go test" configurationId="GoTestRunConfiguration" />
     </history-entry>
@@ -277,6 +272,9 @@
       <configuration name="go test" configurationId="GoTestRunConfiguration" />
     </history-entry>
     <history-entry file="go_test - 2019.03.15 at 22h 19m 04s.xml">
+      <configuration name="go test" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="go_test - 2019.03.15 at 22h 37m 49s.xml">
       <configuration name="go test" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
@@ -325,6 +323,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="49" column="17" selection-start-line="49" selection-start-column="11" selection-end-line="49" selection-end-column="17" />
+          <folding>
+            <element signature="n#!!block;n#findClosestTwoGoverBond#0" />
+            <element signature="n#!!block;n#findBestBenchmarkPoint#0" />
+            <element signature="n#!!block;n#linearApprox#0" />
+            <element signature="n#!!block;n#findYieldInCurve#0" />
+            <element signature="n#!!block;n#loadCsvFile#0" />
+            <element signature="n#!!block;n#main#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../Go_game/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1383">
@@ -334,30 +347,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
+        <state relative-caret-position="839">
           <caret line="198" column="31" selection-start-line="198" selection-start-column="31" selection-end-line="198" selection-end-column="31" />
           <folding>
             <element signature="e#14#45#0" expanded="true" />
             <element signature="n#!!block;n#Test_Load_CSV#0" />
             <element signature="e#1231#1253#0" />
-            <element signature="n#!!block;n#Test_C1_simple#0" />
             <element signature="n#!!block;n#Test_C1_Hard#0" />
             <element signature="n#!!block;n#Test_C2_Normal#0" />
             <element signature="n#!!block;n#Test_C2_Hard#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="114" column="93" selection-start-line="114" selection-start-column="93" selection-end-line="114" selection-end-column="93" />
-          <folding>
-            <element signature="n#!!block;n#computeClosePointAndYield#0" />
-            <element signature="n#!!block;n#findClosestTwoGoverBond#0" />
-            <element signature="n#!!block;n#linearApprox#0" />
-            <element signature="n#!!block;n#loadCsvFile#0" />
-            <element signature="n#!!block;n#main#1" />
           </folding>
         </state>
       </provider>
