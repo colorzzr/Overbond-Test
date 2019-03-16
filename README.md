@@ -43,7 +43,7 @@ type BondInfo struct{
 
 `func findYieldInCurve(corpInfo []BondInfo, govInfo []BondInfo)`
 
-- challenge 2 function. it would find the interval that `govInfo[i - 1].year` <= `corpInfo.year` <= `govInfo[i].year`. Then user linear approximation to find the `yield` at `corpInfo.year`. then return the `yield - corpInfo.year`
+- challenge 2 function. it would find the interval that `govInfo[i - 1].year` <= `corpInfo.year` <= `govInfo[i].year`. Then user linear approximation to find the `yield` of government bond at `corpInfo.year`. then return the `corpInfo.year - yield`
 
 
 # Test Case
