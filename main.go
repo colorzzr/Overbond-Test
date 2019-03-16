@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/bradfitz/slice"
 	"io"
+	"log"
 	"math"
 	"os"
 	"strconv"
@@ -84,7 +85,8 @@ func findBestBenchmarkPoint(corpInfo []BondInfo, govInfo []BondInfo){
 		// compute the yield to closest one
 		yield, bond := computeClosePointAndYield(corpInfo[i], g1, g2)
 
-		fmt.Print(corpInfo[i].BondName, ",", bond.BondName, ",", math.Round(yield*100)/100 ,"%\n")
+		fmt.Print(corpInfo[i].BondName, ",", bond.BondName, ",",
+				fmt.Sprintf("%.2f", math.Round(yield*100)/100 ),"%\n")
 	}
 }
 
@@ -110,7 +112,7 @@ func findYieldInCurve(corpInfo []BondInfo, govInfo []BondInfo){
 		// project on to the line
 		yield := linearApprox(corpInfo[i], g1, g2)
 
-		fmt.Print(corpInfo[i].BondName, "," , math.Round(yield*100)/100, "%\n")
+		fmt.Print(corpInfo[i].BondName, "," , fmt.Sprintf("%.2f", math.Round(yield*100)/100 ), "%\n")
 	}
 
 }
@@ -187,28 +189,24 @@ func loadCsvFile(fileName string)([]BondInfo, []BondInfo, error){
 
 
 func main() {
-	//fmt.Println("test hello")
-	//
-	//
-	//
-	//corpInfo, govInfo, err:= loadCsvFile("./csv_test/Q2_simple_1.csv")
-	//if err != nil{
-	//	log.Fatal(err)
-	//	return
-	//}
-	//
-	//
-	//
-	//fmt.Println("------Print Government Bond------")
-	//for i := 0; i < len(govInfo);i++{
-	//	fmt.Println(govInfo[i])
-	//}
-	//
-	//fmt.Println("------Print corperate Bond------")
-	//for i := 0; i < len(corpInfo);i++{
-	//	fmt.Println(corpInfo[i])
-	//}
-	//
-	//fmt.Println("------Challange 1 test------")
-	//findYieldInCurve(corpInfo, govInfo)
+
+	corpInfo, govInfo, err:= loadCsvFile("./csv_test/Q1_simple_1.csv")
+	if err != nil{
+		log.Fatal(err)
+		return
+	}
+
+
+	fmt.Println("------Challange 1 test------")
+	findBestBenchmarkPoint(corpInfo, govInfo)
+
+	corpInfo, govInfo, err = loadCsvFile("./csv_test/Q2_simple_1.csv")
+	if err != nil{
+		log.Fatal(err)
+		return
+	}
+
+
+	fmt.Println("------Challange 2 test------")
+	findYieldInCurve(corpInfo, govInfo)
 }
